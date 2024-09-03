@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inverter String</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 400px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inverter String</h1>
+        <input type="text" id="entrada" placeholder="Digite a string" />
+        <button onclick="inverterString()">Inverter</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function inverterString() {
+            const entrada = document.getElementById('entrada').value;
+            let resultado = '';
+
+            // Lógica para inverter a string
+            for (let i = entrada.length - 1; i >= 0; i--) {
+                resultado += entrada[i];
+            }
+
+            // Exibe o resultado
+            document.getElementById('resultado').textContent = `String invertida: ${resultado}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentual de Representação por Estado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 400px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #555;
+        }
+        th {
+            background-color: #555;
+        }
+        tr:nth-child(even) {
+            background-color: #555;
+        }
+        tr:nth-child(odd) {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Percentual de Representação por Estado</h1>
+        <button onclick="calcularPercentuais()">Calcular Percentuais</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Faturamento</th>
+                    <th>Percentual</th>
+                </tr>
+            </thead>
+            <tbody id="tabela">
+                <!-- Resultados serão inseridos aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function calcularPercentuais() {
+            const faturamento = {
+                "SP": 67836.43,
+                "RJ": 36678.66,
+                "MG": 29229.88,
+                "ES": 27165.48,
+                "Outros": 19849.53
+            };
+
+            const total = Object.values(faturamento).reduce((acc, valor) => acc + valor, 0);
+            
+            const tabela = document.getElementById('tabela');
+            tabela.innerHTML = ''; // Limpa a tabela antes de inserir novos dados
+
+            for (const [estado, valor] of Object.entries(faturamento)) {
+                const percentual = ((valor / total) * 100).toFixed(2);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${estado}</td>
+                    <td>R$ ${valor.toFixed(2)}</td>
+                    <td>${percentual}%</td>
+                `;
+                tabela.appendChild(row);
+            }
+        }
+    </script>
+</body>
+</html>

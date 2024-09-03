@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faturamento Diário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Faturamento Diário</h1>
+        <button onclick="calcularFaturamento()">Calcular</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        async function carregarDados() {
+            const response = await fetch('faturamento.json');
+            const dados = await response.json();
+            return dados.faturamento;
+        }
+
+        async function calcularFaturamento() {
+            const dados = await carregarDados();
+            
+            const vetor = dados.map(item => item.valor).filter(valor => valor > 0);
+
+            if (vetor.length === 0) {
+                document.getElementById('resultado').textContent = 'Não há dados de faturamento para processar.';
+                document.getElementById('resultado').style.color = '#dc3545'; // Red
+                return;
+            }
+
+          
+            const menorFaturamento = Math.min(...vetor);
+            const maiorFaturamento = Math.max(...vetor);
+
+          
+            const mediaMensal = vetor.reduce((acc, valor) => acc + valor, 0) / vetor.length;
+
+            
+            const diasAcimaMedia = vetor.filter(valor => valor > mediaMensal).length;
+
+            
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = `
+                Menor valor de faturamento: ${menorFaturamento}<br>
+                Maior valor de faturamento: ${maiorFaturamento}<br>
+                Número de dias com faturamento acima da média mensal: ${diasAcimaMedia}
+            `;
+            resultadoDiv.style.color = '#28a745';
+        }
+    </script>
+</body>
+</html>

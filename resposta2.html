@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequência de Fibonacci</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sequência de Fibonacci</h1>
+        <input type="number" id="numeroInput" placeholder="Digite um número" />
+        <button onclick="verificarFibonacci()">Verificar</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function pertenceFibonacci(numero) {
+            let a = 0, b = 1;
+            if (numero === 0) return true;
+
+            while (b < numero) {
+                [a, b] = [b, a + b];
+            }
+            return b === numero;
+        }
+
+        function verificarFibonacci() {
+            const numero = parseInt(document.getElementById('numeroInput').value, 10);
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (isNaN(numero) || numero < 0) {
+                resultadoDiv.textContent = 'Por favor, digite um número inteiro não negativo.';
+                resultadoDiv.style.color = '#dc3545';
+                return;
+            }
+
+            if (pertenceFibonacci(numero)) {
+                resultadoDiv.textContent = `O número ${numero} pertence à sequência de Fibonacci.`;
+                resultadoDiv.style.color = '#28a745';
+            } else {
+                resultadoDiv.textContent = `O número ${numero} não pertence à sequência de Fibonacci.`;
+                resultadoDiv.style.color = '#dc3545';
+            }
+        }
+    </script>
+</body>
+</html>
